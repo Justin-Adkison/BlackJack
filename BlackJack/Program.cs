@@ -16,6 +16,7 @@ class Program
 
         //display cards to console in the order they would be dealt
         int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
+        Console.Clear();
         for (int i = 0; i < dealtCardsArray.Length; i++)
         {
             switch (i)
