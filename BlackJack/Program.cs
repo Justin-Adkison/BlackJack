@@ -54,6 +54,7 @@ class Program
                     Console.WriteLine(dealtCardsArray[i]);
                     break;
             }
+            Thread.Sleep(1000);
         }
 
     }
