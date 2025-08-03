@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-       Random deal = new Random();
+        Random deal = new Random();
 
         int playerCard1 = deal.Next(1, 14);
         int playerCard2 = deal.Next(1, 14);
@@ -14,8 +14,13 @@ class Program
         int dealerCard2 = deal.Next(1, 14);
         int dealerTotal = 0;
 
+        int cardValue = 0;
+        string cardFace = "";
+
         //display cards to console in the order they would be dealt
         int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
+        int[] dealtCardsValue = new int[4];
+        string[] dealtCardsFace = new string[4];
         Console.Clear();
         for (int i = 0; i < dealtCardsArray.Length; i++)
         {
@@ -39,23 +44,47 @@ class Program
             switch (dealtCardsArray[i])
             {
                 case 1:
-                    Console.WriteLine("A");
+                    dealtCardsFace[i] = "A";
+                    dealtCardsValue[i] = dealtCardsArray[i];
+                    Console.WriteLine(dealtCardsFace[i]);
                     break;
                 case 11:
-                    Console.WriteLine("J");
+                    dealtCardsFace[i] = "J";
+                    dealtCardsValue[i] = 10;
+                    Console.WriteLine(dealtCardsFace[i]);
                     break;
                 case 12:
-                    Console.WriteLine("Q");
+                    dealtCardsFace[i] = "Q";
+                    dealtCardsValue[i] = 10;
+                    Console.WriteLine(dealtCardsFace[i]);
                     break;
                 case 13:
-                    Console.WriteLine("K");
+                    dealtCardsFace[i] = "K";
+                    dealtCardsValue[i] = 10;
+                    Console.WriteLine(dealtCardsFace[i]);
                     break;
                 default:
-                    Console.WriteLine(dealtCardsArray[i]);
+                    dealtCardsFace[i] = Convert.ToString(dealtCardsArray[i]);
+                    dealtCardsValue[i] = dealtCardsArray[i];
+                    Console.WriteLine(dealtCardsFace[i]);
                     break;
             }
-            Thread.Sleep(1000);
+            Console.WriteLine("");
+            Thread.Sleep(2000);
         }
+        Console.Clear();
+
+        string dealerDisplayMessage = $"Dealer's Cards: {dealtCardsFace[0]}, {dealtCardsFace[3]}";
+        int textLength = dealerDisplayMessage.Length;
+        int horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        Console.Write($"{dealerDisplayMessage}\n\n");
+
+        string playerDisplayMessage = $"Player's Cards: {dealtCardsFace[1]}, {dealtCardsFace[2]}";
+        textLength = playerDisplayMessage.Length;
+        horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        Console.WriteLine(playerDisplayMessage);
 
     }
 }
@@ -74,7 +103,7 @@ class Cards
     public static void DealCards()
     {
         //deal cards to player and dealer
- 
+
     }
 }
 
