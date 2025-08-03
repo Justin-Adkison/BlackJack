@@ -14,8 +14,7 @@ class Program
         int dealerCard2 = deal.Next(1, 14);
         int dealerTotal = 0;
 
-        int cardValue = 0;
-        string cardFace = "";
+        string? readResult = "";
 
         //display cards to console in the order they would be dealt
         int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
@@ -69,6 +68,14 @@ class Program
                     Console.WriteLine(dealtCardsFace[i]);
                     break;
             }
+            if (i == 0 || i == 3)
+            {
+                dealerTotal += dealtCardsValue[i];
+            }
+            else
+            {
+                playerTotal += dealtCardsValue[i];
+            }
             Console.WriteLine("");
             Thread.Sleep(2000);
         }
@@ -78,14 +85,29 @@ class Program
         int textLength = dealerDisplayMessage.Length;
         int horizontalPosition = (Console.WindowWidth - textLength) / 2;
         Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
-        Console.Write($"{dealerDisplayMessage}\n\n");
+        Console.WriteLine($"{dealerDisplayMessage}");
+
+        dealerDisplayMessage = $"Dealer Total: {dealerTotal}\n\n";
+        textLength = dealerDisplayMessage.Length;
+        horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        Console.WriteLine(dealerDisplayMessage);
 
         string playerDisplayMessage = $"Player's Cards: {dealtCardsFace[1]}, {dealtCardsFace[2]}";
         textLength = playerDisplayMessage.Length;
         horizontalPosition = (Console.WindowWidth - textLength) / 2;
         Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        Console.WriteLine($"{playerDisplayMessage}");
+
+        playerDisplayMessage = $"Dealer Total: {playerTotal}\n\n";
+        textLength = playerDisplayMessage.Length;
+        horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
         Console.WriteLine(playerDisplayMessage);
 
+        Console.WriteLine("Woudld you like to hit or stay?");
+        readResult = Console.ReadLine();
+        if (readResult is not null) ;
     }
 }
 
