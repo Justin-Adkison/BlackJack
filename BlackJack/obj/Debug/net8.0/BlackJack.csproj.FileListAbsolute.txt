@@ -28,3 +28,18 @@ C:/C# Project/BlackJack/BlackJack/BlackJack/obj/Debug/net8.0/ref/BlackJack.dll
 /Users/justinadkison/BlackJack/BlackJack/obj/Debug/net8.0/BlackJack.pdb
 /Users/justinadkison/BlackJack/BlackJack/obj/Debug/net8.0/BlackJack.genruntimeconfig.cache
 /Users/justinadkison/BlackJack/BlackJack/obj/Debug/net8.0/ref/BlackJack.dll
+c:\C# Project\BlackJack\BlackJack\bin\Debug\net8.0\BlackJack.exe
+c:\C# Project\BlackJack\BlackJack\bin\Debug\net8.0\BlackJack.deps.json
+c:\C# Project\BlackJack\BlackJack\bin\Debug\net8.0\BlackJack.runtimeconfig.json
+c:\C# Project\BlackJack\BlackJack\bin\Debug\net8.0\BlackJack.dll
+c:\C# Project\BlackJack\BlackJack\bin\Debug\net8.0\BlackJack.pdb
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.GeneratedMSBuildEditorConfig.editorconfig
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.AssemblyInfoInputs.cache
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.AssemblyInfo.cs
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.csproj.CoreCompileInputs.cache
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.sourcelink.json
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.dll
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\refint\BlackJack.dll
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.pdb
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\BlackJack.genruntimeconfig.cache
+c:\C# Project\BlackJack\BlackJack\obj\Debug\net8.0\ref\BlackJack.dll

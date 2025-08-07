@@ -4,131 +4,199 @@ class Program
 {
     static void Main(string[] args)
     {
-        Random deal = new Random();
+        bool play = false;
+        string[,,] fourDeckOfCards = new string[4, 4, 13];
 
-        int playerCard1 = deal.Next(1, 14);
-        int playerCard2 = deal.Next(1, 14);
-        int playerTotal = 0;
 
-        int dealerCard1 = deal.Next(1, 14);
-        int dealerCard2 = deal.Next(1, 14);
-        int dealerTotal = 0;
+        Game game = new Game(play);
+        game.GetStarted();
+        Cards deck = new Cards(fourDeckOfCards);
+        deck.CreateDeckOfCards();
+        Console.ReadLine();
 
-        string? readResult = "";
+        // //display cards to console in the order they would be dealt
+        // int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
+        // int[] dealtCardsValue = new int[4];
+        // string[] dealtCardsFace = new string[4];
+        // Console.Clear();
 
-        //display cards to console in the order they would be dealt
-        int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
-        int[] dealtCardsValue = new int[4];
-        string[] dealtCardsFace = new string[4];
-        Console.Clear();
-        for (int i = 0; i < dealtCardsArray.Length; i++)
-        {
-            switch (i)
-            {
-                case 0:
-                    Console.Write("Dealer's 1st card: ");
-                    break;
-                case 1:
-                    Console.Write("Player's 1st card: ");
-                    break;
-                case 2:
-                    Console.Write("Player's 2nd card: ");
-                    break;
-                case 3:
-                    Console.Write("Dealer's 2nd card: ");
-                    break;
+        // //add card values to total points
+        // if (i == 0 || i == 3)
+        // {
+        //     dealerTotal += dealtCardsValue[i];
+        // }
+        // else
+        // {
+        //     playerTotal += dealtCardsValue[i];
+        // }
+        // Console.WriteLine("");
+        // Thread.Sleep(2000);
 
-            }
+        // Console.Clear();
 
-            switch (dealtCardsArray[i])
-            {
-                case 1:
-                    dealtCardsFace[i] = "A";
-                    dealtCardsValue[i] = dealtCardsArray[i];
-                    Console.WriteLine(dealtCardsFace[i]);
-                    break;
-                case 11:
-                    dealtCardsFace[i] = "J";
-                    dealtCardsValue[i] = 10;
-                    Console.WriteLine(dealtCardsFace[i]);
-                    break;
-                case 12:
-                    dealtCardsFace[i] = "Q";
-                    dealtCardsValue[i] = 10;
-                    Console.WriteLine(dealtCardsFace[i]);
-                    break;
-                case 13:
-                    dealtCardsFace[i] = "K";
-                    dealtCardsValue[i] = 10;
-                    Console.WriteLine(dealtCardsFace[i]);
-                    break;
-                default:
-                    dealtCardsFace[i] = Convert.ToString(dealtCardsArray[i]);
-                    dealtCardsValue[i] = dealtCardsArray[i];
-                    Console.WriteLine(dealtCardsFace[i]);
-                    break;
-            }
-            if (i == 0 || i == 3)
-            {
-                dealerTotal += dealtCardsValue[i];
-            }
-            else
-            {
-                playerTotal += dealtCardsValue[i];
-            }
-            Console.WriteLine("");
-            Thread.Sleep(2000);
-        }
-        Console.Clear();
+        // //Displays dealer and player cards and points to console
+        // string dealerDisplayMessage = $"Dealer's Cards: {dealtCardsFace[0]}, {dealtCardsFace[3]}";
+        // int textLength = dealerDisplayMessage.Length;
+        // int horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        // Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        // Console.WriteLine($"{dealerDisplayMessage}");
 
-        string dealerDisplayMessage = $"Dealer's Cards: {dealtCardsFace[0]}, {dealtCardsFace[3]}";
-        int textLength = dealerDisplayMessage.Length;
-        int horizontalPosition = (Console.WindowWidth - textLength) / 2;
-        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
-        Console.WriteLine($"{dealerDisplayMessage}");
+        // dealerDisplayMessage = $"Dealer Total: {dealerTotal}\n\n";
+        // textLength = dealerDisplayMessage.Length;
+        // horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        // Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        // Console.WriteLine(dealerDisplayMessage);
 
-        dealerDisplayMessage = $"Dealer Total: {dealerTotal}\n\n";
-        textLength = dealerDisplayMessage.Length;
-        horizontalPosition = (Console.WindowWidth - textLength) / 2;
-        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
-        Console.WriteLine(dealerDisplayMessage);
+        // string playerDisplayMessage = $"Player's Cards: {dealtCardsFace[1]}, {dealtCardsFace[2]}";
+        // textLength = playerDisplayMessage.Length;
+        // horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        // Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        // Console.WriteLine($"{playerDisplayMessage}");
 
-        string playerDisplayMessage = $"Player's Cards: {dealtCardsFace[1]}, {dealtCardsFace[2]}";
-        textLength = playerDisplayMessage.Length;
-        horizontalPosition = (Console.WindowWidth - textLength) / 2;
-        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
-        Console.WriteLine($"{playerDisplayMessage}");
+        // playerDisplayMessage = $"Dealer Total: {playerTotal}\n\n";
+        // textLength = playerDisplayMessage.Length;
+        // horizontalPosition = (Console.WindowWidth - textLength) / 2;
+        // Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
+        // Console.WriteLine(playerDisplayMessage);
 
-        playerDisplayMessage = $"Dealer Total: {playerTotal}\n\n";
-        textLength = playerDisplayMessage.Length;
-        horizontalPosition = (Console.WindowWidth - textLength) / 2;
-        Console.SetCursorPosition(horizontalPosition, Console.CursorTop);
-        Console.WriteLine(playerDisplayMessage);
+        // //hit or stay option
+        // string? correctedReadResult = "";
+        // int newCard = 0;
+        // do
+        // {
+        //     Console.WriteLine("Woudld you like to hit or stay?");
+        //     readResult = Console.ReadLine();
+        //     correctedReadResult = readResult.ToLower().Trim();
 
-        Console.WriteLine("Woudld you like to hit or stay?");
-        readResult = Console.ReadLine();
-        if (readResult is not null) ;
+        //     if (correctedReadResult is not null && correctedReadResult == "hit")
+        //     {
+
+        //     }
+        // } while (correctedReadResult == "hit");
     }
 }
 
 class Cards
 {
-    private int dealtCard;
+    public string[,,] FourDeckOfCards { get;}
 
-    public int DealtCard { get; }
-
-    public Cards(int dealtCard)
+    public Cards(string[,,] fourDeckOfCards)
     {
-        DealtCard = dealtCard;
+        FourDeckOfCards = fourDeckOfCards;
+    }
+
+    public string[,,] CreateDeckOfCards()
+    {
+        string currentCard = "";
+        //4 decks of cards
+        for (int h = 0; h < 4; h++)
+        {
+            //4 different suits
+            for (int i = 0; i < 4; i++)
+            {
+                //13 different cards
+                for (int j = 0; j < 13; j++)
+                {
+                    switch (j)
+                    {
+                        case 0:
+                            currentCard = "A";
+                            break;
+                        case 10:
+                            currentCard = "J";
+                            break;
+                        case 11:
+                            currentCard = "Q";
+                            break;
+                        case 12:
+                            currentCard = "K";
+                            break;
+                        default:
+                            currentCard =
+                            currentCard = (j + 1).ToString();
+                            break;
+
+                    }
+                    switch (i)
+                    {
+                        case 0:
+                            currentCard += "S";
+                            break;
+                        case 1:
+                            currentCard += "C";
+                            break;
+                        case 2:
+                            currentCard += "H";
+                            break;
+                        case 3:
+                            currentCard += "D";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    FourDeckOfCards[h, i, j] = currentCard;
+                    Console.WriteLine(FourDeckOfCards[h, i, j]);
+                }
+            }
+        }
+        return FourDeckOfCards;
+    }
+}
+
+class Hand
+{
+    string[] DealersHand { get; set; }
+    string[] PlayersHand { get; set; }
+}
+
+class Game
+{
+    public int DealtCard { get; }
+    string? ReadResult = "";
+
+    static bool Play;
+
+    public Game(bool play)
+    {
+        Play = play;
+    }
+
+    public void GetStarted()
+    {
+        Console.WriteLine("Would you like to try your luck?\nType \"yes\" or \"exit\" followed by the Enter key.");
+        ReadResult = Console.ReadLine();
+        if (ReadResult is not null)
+        {
+            ReadResult = ReadResult.ToLower().Trim();
+            if (ReadResult == "yes")
+                Play = true;
+            else
+                Environment.Exit(0);
+        }
     }
 
     public static void DealCards()
     {
-        //deal cards to player and dealer
+        // int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
+        // int[] dealtCardsValue = new int[4];
+        // string[] dealtCardsFace = new string[4];
+        // Console.Clear();
 
+        // //add card values to total points
+        // if (i == 0 || i == 3)
+        // {
+        //     dealerTotal += dealtCardsValue[i];
+        // }
+        // else
+        // {
+        //     playerTotal += dealtCardsValue[i];
+        // }
+        // Console.WriteLine("");
+        // Thread.Sleep(2000);
     }
-}
 
+}
 class Money
 {
 
