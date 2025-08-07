@@ -5,14 +5,17 @@ class Program
     static void Main(string[] args)
     {
         bool play = false;
-        string[,,] fourDeckOfCards = new string[4, 4, 13];
+        string[] fourDeckOfCards = new string[208];
 
 
         Game game = new Game(play);
         game.GetStarted();
         Cards deck = new Cards(fourDeckOfCards);
         deck.CreateDeckOfCards();
+        deck.Shuffle(fourDeckOfCards);
         Console.ReadLine();
+
+
 
         // //display cards to console in the order they would be dealt
         // int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
@@ -78,15 +81,16 @@ class Program
 
 class Cards
 {
-    public string[,,] FourDeckOfCards { get;}
+    public string[] FourDeckOfCards { get; }
 
-    public Cards(string[,,] fourDeckOfCards)
+    public Cards(string[] fourDeckOfCards)
     {
         FourDeckOfCards = fourDeckOfCards;
     }
 
-    public string[,,] CreateDeckOfCards()
+    public string[] CreateDeckOfCards()
     {
+        int index = 0;
         string currentCard = "";
         //4 decks of cards
         for (int h = 0; h < 4; h++)
@@ -134,13 +138,27 @@ class Cards
                         default:
                             break;
                     }
-
-                    FourDeckOfCards[h, i, j] = currentCard;
-                    Console.WriteLine(FourDeckOfCards[h, i, j]);
+                    FourDeckOfCards[index] = currentCard;
+                    index++;
                 }
             }
         }
         return FourDeckOfCards;
+    }
+
+    public string[] Shuffle(string[] array)
+    {
+        Random random = new Random();
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            //select random index
+            int j = random.Next(0, i + 1);
+            string temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+        
     }
 }
 
