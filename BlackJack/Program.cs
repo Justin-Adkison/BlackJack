@@ -5,14 +5,31 @@ class Program
     static void Main(string[] args)
     {
         bool play = false;
-        string[] fourDeckOfCards = new string[208];
+        List<string> fourDeckOfCards = new List<string>(208);
+        List<string> playersHand = new List<string>();
+        List<string> dealersHand = new List<string>();
+
 
 
         Game game = new Game(play);
+        Hand hand = new Hand(dealersHand, playersHand);
         game.GetStarted();
         Cards deck = new Cards(fourDeckOfCards);
         deck.CreateDeckOfCards();
         deck.Shuffle(fourDeckOfCards);
+        hand.DealCards(fourDeckOfCards);
+        Console.WriteLine(hand.CalculatePoints(dealersHand, playersHand));
+        //calculate points each player has
+        //determine if bust
+        //if bust, lose money
+        //users decision to hit or stay
+        //if hit
+        //dowhile loop until user busts or selects to stay
+        //////draw another card
+        //////recalculate total
+        //////determine bust and reiterate through loop
+        //ask player if they want to play another hand
+
         Console.ReadLine();
 
 
@@ -81,14 +98,14 @@ class Program
 
 class Cards
 {
-    public string[] FourDeckOfCards { get; }
+    public List<string> FourDeckOfCards { get; }
 
-    public Cards(string[] fourDeckOfCards)
+    public Cards(List<string> fourDeckOfCards)
     {
         FourDeckOfCards = fourDeckOfCards;
     }
 
-    public string[] CreateDeckOfCards()
+    public List<string> CreateDeckOfCards()
     {
         int index = 0;
         string currentCard = "";
@@ -116,7 +133,6 @@ class Cards
                             currentCard = "K";
                             break;
                         default:
-                            currentCard =
                             currentCard = (j + 1).ToString();
                             break;
 
@@ -138,7 +154,7 @@ class Cards
                         default:
                             break;
                     }
-                    FourDeckOfCards[index] = currentCard;
+                    FourDeckOfCards.Add(currentCard);
                     index++;
                 }
             }
@@ -146,26 +162,108 @@ class Cards
         return FourDeckOfCards;
     }
 
-    public string[] Shuffle(string[] array)
+    public List<string> Shuffle(List<string> list)
     {
         Random random = new Random();
-        for (int i = array.Length - 1; i > 0; i--)
+        for (int i = list.Count - 1; i > 0; i--)
         {
             //select random index
             int j = random.Next(0, i + 1);
-            string temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            string temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
         }
-        return array;
-        
+        return list;
     }
+
 }
 
 class Hand
 {
-    string[] DealersHand { get; set; }
-    string[] PlayersHand { get; set; }
+    public static List<string> DealersHand { get; set; }
+    public static List<string> PlayersHand { get; set; }
+
+    public Hand(List<string> dealersHand, List<string> playersHand)
+    {
+        DealersHand = dealersHand;
+        PlayersHand = playersHand;
+    }
+    public void DealCards(List<string> deckOfCards)
+    {
+        int i = 0;
+
+        DealersHand.Add(deckOfCards[0]);
+        deckOfCards.RemoveAt(0);
+        Console.WriteLine($"Dealer's card: {DealersHand[0]}");
+        Thread.Sleep(2500);
+
+        PlayersHand.Add(deckOfCards[0]);
+        deckOfCards.RemoveAt(0);
+        Console.WriteLine($"Player's card: {PlayersHand[0]}");
+        Thread.Sleep(2500);
+        i++;
+
+        PlayersHand.Add(deckOfCards[0]);
+        deckOfCards.RemoveAt(0);
+        Console.WriteLine($"Player's card: {PlayersHand[1]}");
+        Thread.Sleep(2500);
+
+
+        DealersHand.Add(deckOfCards[0]);
+        deckOfCards.RemoveAt(0);
+        Console.WriteLine($"Dealer's card: {DealersHand[1]}");
+        Thread.Sleep(2500);
+    }
+
+    public int CalculatePoints(List<string> DealersHand, List<string> PlayersHand)
+    {
+        int parse;
+        int dealerTotal = 0;
+        int playerTotal = 0;
+        bool containsAce = false;
+        foreach (string card in DealersHand)
+        {
+            if (int.TryParse(card.Remove(1, 1), out parse))
+            {
+                dealerTotal += parse;
+            }
+            else if (card.StartsWith('A'))
+            {
+                dealerTotal += 11;
+                containsAce = true;
+            }
+            else
+            {
+                dealerTotal += 10;
+            }
+        }
+        if (dealerTotal > 21 && containsAce == true)
+        {
+            dealerTotal -= 10;
+        }
+
+        foreach (string card in PlayersHand)
+        {
+            if (int.TryParse(card.Remove(1, 1), out parse))
+            {
+                playerTotal += parse;
+            }
+            else if (card.StartsWith('A'))
+            {
+                playerTotal += 11;
+                containsAce = true;
+            }
+            else
+            {
+                playerTotal += 10;
+            }
+        }
+        if (playerTotal > 21 && containsAce == true)
+        {
+            playerTotal -= 10;
+        }
+        return playerTotal & dealerTotal;
+    }
 }
 
 class Game
@@ -193,27 +291,6 @@ class Game
                 Environment.Exit(0);
         }
     }
-
-    public static void DealCards()
-    {
-        // int[] dealtCardsArray = [dealerCard1, playerCard1, playerCard2, dealerCard2];
-        // int[] dealtCardsValue = new int[4];
-        // string[] dealtCardsFace = new string[4];
-        // Console.Clear();
-
-        // //add card values to total points
-        // if (i == 0 || i == 3)
-        // {
-        //     dealerTotal += dealtCardsValue[i];
-        // }
-        // else
-        // {
-        //     playerTotal += dealtCardsValue[i];
-        // }
-        // Console.WriteLine("");
-        // Thread.Sleep(2000);
-    }
-
 }
 class Money
 {
