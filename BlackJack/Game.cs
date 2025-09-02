@@ -5,7 +5,7 @@ class Game
 
     static bool play;
 
-
+    //starts the game by creating a collection of 4 decks of cards and shuffles them
     public static bool GetStarted()
     {
         Console.WriteLine("Would you like to try your luck?\nType \"yes\" or \"exit\" followed by the Enter key.");
@@ -25,7 +25,7 @@ class Game
         return play;
     }
 
-
+    //If player wants to play another hand, the current hand is cleared for dealer and player
     public static bool PlayAnotherHand()
     {
         Console.WriteLine("Would you like to play another hand?\nType \"yes\" or \"no\" followed by the Enter key.");
@@ -44,6 +44,7 @@ class Game
         }
         return play;
     }
+    // If player hits, card is added to their hand and removed from the deck
     public static bool Hit()
     {
         bool hit = false;

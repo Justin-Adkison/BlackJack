@@ -1,14 +1,9 @@
-class Hand
+static class Hand
 {
 
     public static List<string> DealersHand { get; private set; } = new List<string>();
     public static List<string> PlayersHand { get; private set; } = new List<string>();
-
-    public Hand(List<string> dealersHand, List<string> playersHand)
-    {
-        DealersHand = dealersHand;
-        PlayersHand = playersHand;
-    }
+    //deals 2 cards to dealer and 2 cards to player and removed from deck. Only shows dealers first dealt card.
     public static void DealInitialCards(List<string> deckOfCards)
     {
         int i = 0;
@@ -34,13 +29,14 @@ class Hand
         deckOfCards.RemoveAt(0);
     }
 
+    // deals a card and removed from deck
     public static string DealOneCard(List<string> deckOfCards)
     {
         string temp = deckOfCards[0];
         deckOfCards.RemoveAt(0);
         return temp;
     }
-
+    //calculates points in the given hand. If contains an ace, the value of the ace reverts to 1 point vice 11.
     public static int CalculatePoints(List<string> Hand)
     {
         int parse;

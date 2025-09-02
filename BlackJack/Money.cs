@@ -13,7 +13,8 @@ class Money
     {
         Console.WriteLine($"Current balance: {Balance:C}");
     }
-
+    //asks player for wager amount. The amount will then be removed from the balance.
+    //logic included to ensure sufficient funds exist.
     public void WagerAmount()
     {
         validBet = false;
@@ -41,19 +42,19 @@ class Money
             }
         } while (!validBet);
     }
-
+    //player wins amount equal to their bet
     public void Winner()
     {
         Winnings = Bet * 2;
         Balance += Winnings;
     }
-
+    //blackjack has an increased payout
     public void BlackJack()
     {
         Winnings = Bet * 2.5m;
         Balance += Winnings;
     }
-
+    //player recieves their wager back on push
     public void Push()
     {
         Balance += Bet;

@@ -11,102 +11,105 @@ class Program
         bool hit;
         int dealerTotal;
         int playerTotal;
-
+        bool blackJack;
 
         Game.GetStarted();
         do
         {
+            blackJack = false;
             player1.DisplayBalance();
             player1.WagerAmount();
             Hand.DealInitialCards(Cards.FourDeckOfCards);
             dealerTotal = Hand.CalculatePoints(Hand.DealersHand);
+            //if dealer has 21
+            //player loses
+            //else
             playerTotal = Hand.CalculatePoints(Hand.PlayersHand);
             Console.WriteLine($"Player Total = {playerTotal}");
             if (playerTotal == 21)
             {
                 player1.BlackJack();
                 Console.WriteLine($"You got 21! Winnings: {player1.Winnings}");
-                break;
+                blackJack = true;
             }
-            //if player has 21
-            //win 3/2 winnings
-            //else if dealer has 21
-            //player loses
-            //else
+
             int i = 2;
             bool playerBust = false;
             bool dealerBust = false;
-            do
+            if (!blackJack)
             {
-                hit = Game.Hit();
-                if (hit)
+                do
                 {
-                    Hand.PlayersHand.Add(Hand.DealOneCard(Cards.FourDeckOfCards));
-                    playerTotal = Hand.CalculatePoints(Hand.PlayersHand);
-                    string dealtCard = Hand.PlayersHand[i];
-                    i++;
-                    Console.WriteLine($"Player's Card: {dealtCard}");
-                    Console.WriteLine($"Player Total = {playerTotal}");
-                    Thread.Sleep(2000);
-
-                    if (Game.DidBust(playerTotal))
+                    hit = Game.Hit();
+                    if (hit)
                     {
-                        playerBust = true;
-                        Console.WriteLine("Bust!");
-                        break;
+                        Hand.PlayersHand.Add(Hand.DealOneCard(Cards.FourDeckOfCards));
+                        playerTotal = Hand.CalculatePoints(Hand.PlayersHand);
+                        string dealtCard = Hand.PlayersHand[i];
+                        i++;
+                        Console.WriteLine($"Player's Card: {dealtCard}");
+                        Console.WriteLine($"Player Total = {playerTotal}");
+                        Thread.Sleep(2000);
+
+                        if (Game.DidBust(playerTotal))
+                        {
+                            playerBust = true;
+                            Console.WriteLine("Bust!");
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
                     else
-                    {
-                        continue;
-                    }
-                }
-                else
-                    break;
-            } while (hit);
+                        break;
+                } while (hit);
 
-            if (!playerBust)
-            {
-                i = 2;
-                Console.WriteLine($"Dealer's card: {Hand.DealersHand[1]}");
-                dealerTotal = Hand.CalculatePoints(Hand.DealersHand);
-                Console.WriteLine($"Dealer Total: {dealerTotal}");
-                Thread.Sleep(2000);
-                while (dealerTotal < 17 && !dealerBust)
+                if (!playerBust)
                 {
-                    Hand.DealersHand.Add(Hand.DealOneCard(Cards.FourDeckOfCards));
+                    i = 2;
+                    Console.WriteLine($"Dealer's card: {Hand.DealersHand[1]}");
                     dealerTotal = Hand.CalculatePoints(Hand.DealersHand);
-                    string dealtCard = Hand.DealersHand[i];
-                    i++;
-                    Console.WriteLine($"Dealer's Card: {dealtCard}");
-                    Console.WriteLine($"Dealer Total = {dealerTotal}");
+                    Console.WriteLine($"Dealer Total: {dealerTotal}");
                     Thread.Sleep(2000);
-                    if (Game.DidBust(dealerTotal))
+                    while (dealerTotal < 17 && !dealerBust)
                     {
-                        dealerBust = true;
-                        break;
+                        Hand.DealersHand.Add(Hand.DealOneCard(Cards.FourDeckOfCards));
+                        dealerTotal = Hand.CalculatePoints(Hand.DealersHand);
+                        string dealtCard = Hand.DealersHand[i];
+                        i++;
+                        Console.WriteLine($"Dealer's Card: {dealtCard}");
+                        Console.WriteLine($"Dealer Total = {dealerTotal}");
+                        Thread.Sleep(2000);
+                        if (Game.DidBust(dealerTotal))
+                        {
+                            dealerBust = true;
+                            break;
+                        }
+                        else
+                            continue;
                     }
-                    else
-                        continue;
                 }
-            }
 
-            if (Game.DeterminePush(playerTotal, dealerTotal))
-            {
-                Console.WriteLine("Push");
-                player1.Push();
-            }
-            else
-            {
-                if (Game.DetermineWinner(playerTotal, dealerTotal, dealerBust, playerBust))
+                if (Game.DeterminePush(playerTotal, dealerTotal))
                 {
-                    Console.WriteLine($"Congrtulations. You won this hand. Winnings: {player1.Bet:C}");
-                    player1.Winner();
+                    Console.WriteLine("Push");
+                    player1.Push();
                 }
                 else
                 {
-                    Console.WriteLine("Better luck next hand.");
-                }
+                    if (Game.DetermineWinner(playerTotal, dealerTotal, dealerBust, playerBust))
+                    {
+                        Console.WriteLine($"Congrtulations. You won this hand. Winnings: {player1.Bet:C}");
+                        player1.Winner();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Better luck next hand.");
+                    }
 
+                }
             }
             play = Game.PlayAnotherHand();
         } while (play);

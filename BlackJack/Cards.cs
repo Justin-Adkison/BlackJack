@@ -1,7 +1,7 @@
 class Cards
 {
     public static List<string> FourDeckOfCards { get; private set; } = new List<string>(208);
-
+    //creates 4 decks of cards
     public static void CreateCards()
     {
         int index = 0;
@@ -57,7 +57,7 @@ class Cards
             }
         }
     }
-
+    //shuffle all four decks of cards
     public static void Shuffle()
     {
         Random random = new Random();
