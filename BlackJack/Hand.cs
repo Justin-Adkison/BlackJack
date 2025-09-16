@@ -8,35 +8,36 @@ static class Hand
     {
         int i = 0;
 
-        DealersHand.Add(deckOfCards[0]);
-        deckOfCards.RemoveAt(0);
+        DealersHand.Add(deckOfCards[deckOfCards.Count - 1]);
+        deckOfCards.RemoveAt(deckOfCards.Count - 1);
         Console.WriteLine($"Dealer's card: {DealersHand[0]}");
         Thread.Sleep(2500);
 
-        PlayersHand.Add(deckOfCards[0]);
-        deckOfCards.RemoveAt(0);
+        PlayersHand.Add(deckOfCards[deckOfCards.Count - 1]);
+        deckOfCards.RemoveAt(deckOfCards.Count - 1);
         Console.WriteLine($"Player's card: {PlayersHand[0]}");
         Thread.Sleep(2500);
         i++;
 
-        PlayersHand.Add(deckOfCards[0]);
-        deckOfCards.RemoveAt(0);
+        PlayersHand.Add(deckOfCards[deckOfCards.Count - 1]);
+        deckOfCards.RemoveAt(deckOfCards.Count - 1);
         Console.WriteLine($"Player's card: {PlayersHand[1]}");
         Thread.Sleep(2500);
 
 
-        DealersHand.Add(deckOfCards[0]);
-        deckOfCards.RemoveAt(0);
+        DealersHand.Add(deckOfCards[deckOfCards.Count - 1]);
+        deckOfCards.RemoveAt(deckOfCards.Count - 1);
     }
 
     // deals a card and removed from deck
     public static string DealOneCard(List<string> deckOfCards)
     {
-        string temp = deckOfCards[0];
-        deckOfCards.RemoveAt(0);
+        string temp = deckOfCards[deckOfCards.Count - 1];
+        deckOfCards.RemoveAt(deckOfCards.Count - 1);
         return temp;
     }
     //calculates points in the given hand. If contains an ace, the value of the ace reverts to 1 point vice 11.
+    // Bug exists if there are multiple aces in hand
     public static int CalculatePoints(List<string> Hand)
     {
         int parse;

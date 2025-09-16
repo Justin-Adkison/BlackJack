@@ -38,6 +38,7 @@ class Game
                 play = true;
                 Hand.DealersHand.Clear();
                 Hand.PlayersHand.Clear();
+                Console.Clear();
             }
             else
                 play = false;
@@ -86,10 +87,7 @@ class Game
         return bust;
     }
 
-    public static bool DeterminePush(int PlayerTotal, int DealerTotal)
-    {
-        return PlayerTotal == DealerTotal;
-    }
+    public static bool DeterminePush(int PlayerTotal, int DealerTotal) => PlayerTotal == DealerTotal;
 
     public static bool DetermineWinner(int PlayerTotal, int DealerTotal, bool DealerBust, bool PlayerBust)
     {
